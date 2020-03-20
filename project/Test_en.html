@@ -1,0 +1,2764 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+	 <link rel="shortcut icon" href="../images/favicon-1.ico" type="image/x-icon" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="Description" content="Programación bloques, Arduino, NodeMCU">
+	
+	<meta name="csrf-param" content="_csrf">
+    <meta name="csrf-token" content="LhVwCG66K488H8EE6YktD1LqFvizU6u7MQtblt8ZXRVIcx5GIIxt315mi2C7_XVIP6Mvr-wM_-heZQ__nkY-eA==">
+    <title> Coding in-a-Blox </title>
+  
+	<link href="../assets/cda3038f/css/bootstrap.css" rel="stylesheet"> 
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">-->
+	
+<link href="../css/site.css" rel="stylesheet">
+<link href="../assets/7b62b9ec/stylesheets/language-picker.min.css" rel="stylesheet">
+<link href="../assets/7b62b9ec/stylesheets/flags-small.min.css" rel="stylesheet">
+<script src="../assets/22a8963f/jquery.js"></script>
+<script src="../assets/6009c610/yii.js"></script>	
+</head>
+<body>
+	
+<!-- navbar superior -->
+<nav id="w0" class="navbar navbar-default navbar-fixed-top ablocks-navbar-backcolor" role="navigation"><img src="../images/steamhead.png" alt=" JuniorBlocks" style="align:center" onclick="window.location.href='index.html'" class="navbar navbar-default navbar-fixed-top ablocks-navbar-backcolor">
+<div class="container-fluid"><div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#w0-collapse"><span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span></button></div><div id="w0-collapse" class="collapse navbar-collapse">
+<div class="navbar-text pull-right">
+    <div class="language-picker dropdown-list small"><div><i class="en"></i> <ul><li><i class="es" onclick="window.location.assign('https://bloques.conmasfuturo.com/jblocks/project/index.php?lang=es')"></i></div></div></div>
+	
+<ul id="w3" class="navbar-nav navbar-right nav"><li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">Downloads <b class="caret"></b></a><ul id="w4" class="dropdown-menu"><li><a href="../connector" tabindex="-1">Coding in-a-blox Connector</a></li>
+<li><a href="../connector/ablibs.zip" tabindex="-1">Arduino librarys</a></li>
+<li class="divider"><a href="#" tabindex="-1"></a></li>
+
+</div></div></nav>	
+<!-- main content fill full screen and padding para navbar-->
+<div class="container-fluid ablocks-fill-and-pad">
+
+	<script type="application/javascript">
+	//base image path for block images
+	var img_path='../'; 
+	var base_path='https://bloques.conmasfuturo.com/jblocks/project/'; 
+</script>
+<!-- AGREGADO BOOTSTRAP 4.1  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> -->
+
+
+
+<script type="text/javascript" src="../blockly/blockly_compressed.js"></script>
+<script type="text/javascript" src="../blockly/msg/js/en.js"></script>
+<script type="text/javascript" src="../blockly/blocks_compressed.js"></script>
+<script type="text/javascript" src="../blockly/generators_compressed.js"></script>
+<script type="text/javascript" src="../js/FileSaver.min.js"></script>
+<script type="text/javascript" src="../js/steam.js"></script>
+
+<script type="text/javascript">
+	function showLoading() {
+    	$("#loading").show();
+	}
+
+	function hideLoading() {
+    	$("#loading").hide();
+	}
+	
+	function enableBridge(_status) {
+    	$("#btnUpload").prop( "disabled", !_status );
+    	$("#btnConsole").prop( "disabled", !_status );		
+    	$("#serialports").prop( "disabled", !_status );			
+	}	
+</script>
+
+<!-- TOOLBOX -->
+<xml id="toolbox" style="display: none">
+
+	<!-- LOGIC -->
+	<category name="Logic" colour="210">
+    	<block type="controls_if"></block>
+    	<block type="controls_if">
+			<mutation else="1"></mutation>
+       </block>
+      <block type="logic_compare"></block>
+	<block type="logic_compare_bool"></block>        
+	<block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_boolean2"></block>
+    </category>
+	
+	<!-- LOOPS -->
+	<category name="Control" colour="120">
+		<!--<block type="controls_repeat"></block>-->
+			<block type="control_arduino_loop"></block>
+			<block type="control_arduino_setup"></block>			
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="controls_whileUntil">
+        </block>
+        <block type="controls_for">
+            <field name="VAR">i</field>
+            <value name="FROM">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+            <value name="TO">
+                <shadow type="math_number">
+                    <field name="NUM">9</field>
+                </shadow>
+            </value>
+            <value name="BY">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+	<block type="control_wait_whileUntil"></block>
+	<block type="control_group"></block>
+
+    </category>
+	
+	<!-- MATH -->
+	<category name="Maths" colour="240">
+        <block type="math_number"></block>
+		<block type="math_to_int"></block>		
+		<block type="math_to_uint"></block>		
+		<block type="math_angle"></block>
+        <block type="math_arithmetic"></block>
+        <block type="math_single"></block>
+        <block type="math_atan2"></block>        
+        <block type="math_change">
+            <value name="DELTA">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+		        <block type="math_map">
+            <value name="FROMLOW">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+            <value name="FROMHIGH">
+                <shadow type="math_number">
+                    <field name="NUM">1023</field>
+                </shadow>
+            </value>
+            <value name="TOLOW">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+            <value name="TOHIGH">
+                <shadow type="math_number">
+                    <field name="NUM">100</field>
+                </shadow>
+            </value>
+        </block>
+		<block type="math_constrain">
+            <value name="LOW">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="HIGH">
+                <shadow type="math_number">
+                    <field name="NUM">100</field>
+                </shadow>
+            </value>
+        </block>
+      <block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+        <block type="math_modulo"></block>
+    </category>
+	
+	<!-- TEXT -->
+	<category name="Text" colour="160">
+        <block type="text"></block>
+		<block type="text_format">
+			<value name="NUM">
+				<shadow type="math_number">
+            		<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>
+		<block type="text_format_decimal">
+			<value name="NUM">
+				<shadow type="math_number">
+            		<field name="NUM">0</field>
+				</shadow>
+				<field name="DECIMALS">4</field>
+			</value>
+		</block>
+		<block type="text_tonumber">
+			<value name="TXT">
+				<shadow type="text">
+					<field name="TEXT"></field>
+				</shadow>
+			</value>		
+		</block>
+		<block type="text_join"></block>
+		<block type="text_compare"></block>
+		<block type="text_length"></block>		
+		<block type="text_contains"></block>
+		<block type="text_indexof"></block>
+		<block type="text_substring"></block>
+		<block type="text_replace"></block>
+		<block type="text_ascii"></block>				
+	</category>
+
+	<!-- Variables -->
+	<!-- custom="VARIABLE" -->
+	<category name="Variables"  colour="330">
+		
+		<block type="variables_set">
+			<value name="VALUE">
+				<shadow type="math_number">
+            		<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>		
+		<block type="variables_get"></block>
+		
+		<block type="variables_set_text">
+			<value name="VALUE">
+				<shadow type="text"></shadow>
+			</value>
+		</block>
+		<block type="variables_get_text"></block>
+		
+		<block type="variables_set_bool">
+			<value name="VALUE">
+				<shadow type="logic_boolean2"></shadow>
+			</value>
+		</block>
+		<block type="variables_get_bool"></block>
+	</category>
+	
+	<category name="Listas"  colour="330">		
+		<block type="lists_create_with"></block>		
+		<block type="lists_getIndex">
+			<value name="AT">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>		
+		</block>
+		<block type="lists_setIndex">
+			<value name="AT">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>		
+			<value name="TO">
+				<shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>		
+		</block>
+		<block type="lists_length"></block>
+		
+		<block type="lists_create_with_text"></block>		
+		<block type="lists_getIndex_text">
+			<value name="AT">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>		
+		</block>
+		<block type="lists_setIndex_text">
+			<value name="AT">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>		
+			<value name="TO">
+				<shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>		
+		</block>
+		<block type="lists_length_text"></block>
+	</category>
+	
+    
+	<!-- Funciones -->
+	<category name="Functions" custom="PROCEDURE" colour="270"></category>
+	
+	<sep></sep>
+
+	<!-- IO -->
+	<category name="In/Out" colour="230">
+		<block type="io_digital_read">
+			<field name="PIN">2</field>
+		</block>
+		<block type="io_digital_write">
+			<field name="PIN">2</field>
+		</block>
+		<block type="io_analog_read"></block>
+		<block type="io_analog_write">
+			<value name="NUM">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>
+
+		<block type="io_digital_read2">
+			<value name="PIN">
+				<shadow type="math_number">
+					<field name="NUM">2</field>
+				</shadow>
+			</value>		
+		</block>
+		<block type="io_digital_write2">
+			<value name="PIN">
+				<shadow type="math_number">
+					<field name="NUM">2</field>
+				</shadow>
+			</value>
+			<value name="STAT">
+				<shadow type="logic_boolean2">
+					<field name="BOOL">false</field>
+				</shadow>
+			</value>
+		</block>
+		<block type="io_analog_read2">
+			<value name="PIN">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>					
+		</block>
+		<block type="io_analog_write2">
+			<value name="PIN">
+				<shadow type="math_number">
+					<field name="NUM">3</field>
+				</shadow>
+			</value>
+			<value name="NUM">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>				
+        
+		<block type="io_pulsein">
+			<field name="PIN">2</field>
+			<value name="TIMEOUT">
+				<shadow type="math_number">
+					<field name="NUM">1000</field>
+				</shadow>
+			</value>
+		</block>				
+		<block type="io_interrupt"></block>
+
+		<block type="io_digital_read_i2c">
+			<field name="PIN">0</field>
+		</block>
+		<block type="io_digital_write_i2c">
+			<field name="PIN">0</field>
+		</block>
+		<block type="io_digital_read2_i2c">
+			<value name="PIN">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>		
+		</block>
+		<block type="io_digital_write2_i2c">
+			<value name="PIN">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+			<value name="STAT">
+				<shadow type="logic_boolean">
+					<field name="BOOL">false</field>
+				</shadow>
+			</value>
+		</block>
+		<block type="io_analog_write_i2c">
+			<value name="NUM">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>
+		<block type="io_analog_write2_i2c">
+			<value name="PIN">
+				<shadow type="math_number">
+					<field name="NUM">3</field>
+				</shadow>
+			</value>
+			<value name="NUM">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>
+		</block>			
+	</category>
+		
+	<category name="Tiempo" colour="110">
+		<block type="time_delay">
+			<value name="DELAY_TIME_MILI">
+                <shadow type="math_number">
+                    <field name="NUM">1000</field>
+                </shadow>
+            </value>
+		</block>
+		<block type="time_delaymicros">
+			<value name="DELAY_TIME_MICRO">
+                <shadow type="math_number">
+                    <field name="NUM">1000</field>
+                </shadow>
+            </value>		
+		</block>
+		<block type="time_millis"></block>
+		<block type="time_micros"></block>
+		
+		<block type="time_runeveryms">
+			<value name="MS">
+                <shadow type="math_number">
+                    <field name="NUM">1000</field>
+                </shadow>
+            </value>					
+		</block>	
+		<block type="infinite_loop"></block>	
+
+		<block type="time_timer"></block>	
+		<block type="time_timer_reset"></block>	
+		
+		<block type="time_snooze">
+			<value name="DELAY_TIME_MILI">
+				<shadow type="math_number">
+					<field name="NUM">5000</field>
+				</shadow>
+			</value>
+		</block>
+
+	</category>
+	
+	<category name="Puerto serie" colour="170">
+		<block type="serial_init">
+			<field name="BAUD">9600</field>
+		</block>
+		<block type="serial_timeout">
+			<value name="MS">
+                <shadow type="math_number">
+                    <field name="NUM">1000</field>
+                </shadow>
+            </value>					
+		</block>		
+		<block type="serial_print">
+			<value name="STRINGOUTPUT">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+		<block type="serial_write_byte">
+			<value name="BYTE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>					
+		</block>
+		<block type="serial_read_available"></block>
+		<block type="serial_read_string"></block>
+		<block type="serial_read_byte"></block>	
+		<block type="serial_read_float"></block>
+	</category>
+
+	<category name="Bluetooth" colour="190">
+		<block type="bluetooth_init">
+			<field name="RX">2</field>
+			<field name="TX">3</field>
+			<field name="BAUD">9600</field>
+		</block>		
+		<block type="bluetooth_name2">		
+			<value name="DEVNAME">
+				<shadow type="text">
+						<field name="TEXT">CodingInaBlox</field>
+				</shadow>
+			</value>
+			<value name="DEVPIN">
+				<shadow type="text">
+						<field name="TEXT">1234</field>
+				</shadow>
+			</value>
+		</block>		
+		<block type="bluetooth_timeout">
+			<value name="MS">
+                <shadow type="math_number">
+                    <field name="NUM">1000</field>
+                </shadow>
+            </value>					
+		</block>		
+		<block type="bluetooth_print">
+			<value name="STRINGOUTPUT">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+		<block type="bluetooth_write_byte">
+			<value name="BYTE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>					
+		</block>
+		<block type="bluetooth_read_available"></block>
+		<block type="bluetooth_read_string"></block>
+		<block type="bluetooth_read_byte"></block>		
+		<block type="bluetooth_read_float"></block>
+	</category>
+	
+	<category name="Sensors" colour="230">
+		<block type="sensor_potentiometer"></block>
+		<block type="sensor_button">
+			<field name="PIN">2</field>
+		</block>
+		<block type="sensor_button_debounced">
+			<field name="PIN">2</field>
+		</block>
+		<block type="sensor_touch">
+			<field name="PIN">2</field>
+		</block>
+		<block type="sensor_pir">
+			<field name="PIN">2</field>
+		</block>		
+		<block type="sensor_dht11">
+			<field name="PIN">2</field>
+		</block>
+		<block type="sensor_dht22">
+			<field name="PIN">2</field>
+		</block>
+		<block type="sensor_ldr"></block>
+		<block type="sensor_ntc"></block>			
+		<block type="sensor_ultrasonic">
+			<field name="TRIGGER_PIN">2</field>
+			<field name="ECHO_PIN">3</field>
+		</block>		
+		<block type="sensor_irremote_decode">
+			<field name="PIN">11</field>
+		</block>
+		<block type="sensor_irremote_keys"></block>		
+		<block type="sensor_rotary_encoder"></block>
+		<block type="sensor_rotary_encoder_set">
+			<value name="POS">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>
+			</value>					
+		</block>
+		<block type="sensor_joystick">
+			<field name="PIN">2</field>
+		</block>		
+		<block type="sensor_obstacle">
+			<field name="PIN">2</field>
+		</block>		
+		<block type="sensor_sound"></block>			
+		<block type="sensor_adxl335">
+			<field name="PINX">A0</field>
+			<field name="PINY">A1</field>
+			<field name="PINZ">A2</field>
+		</block>
+		<block type="sensor_adxl345"></block>
+		<block type="sensor_linetracking">
+			<field name="PIN">2</field>
+		</block>		
+		<block type="sensor_photoint">
+			<field name="PIN">2</field>
+		</block>		
+		<block type="sensor_soilhumidity">
+			
+		</block>		
+		<block type="sensor_water">
+			
+		</block>				
+		<block type="sensor_knock">
+			<field name="PIN">2</field>
+		</block>		
+		<block type="sensor_tilt">
+			<field name="PIN">2</field>
+		</block>		
+		<block type="sensor_hall">
+			<field name="PIN">2</field>
+		</block>	
+		<block type="sensor_vibration">
+			<field name="PIN">2</field>
+		</block>	
+		<block type="sensor_flame"></block>	
+		<block type="sensor_gas"></block>	
+		<block type="sensor_alcohol"></block>	
+		<block type="sensor_air"></block>	
+		<block type="sensor_TEMT6000"></block>			
+		<block type="sensor_lm35"></block>
+		<block type="sensor_tmp36"></block>
+		<block type="sensor_nunchuk"></block>
+
+		<block type="sensor_pm25">
+			<field name="LED">2</field>
+			<field name="OUT">A0</field>
+		</block>
+
+		<block type="sensor_mics4514">
+			<field name="PRE">2</field>
+			<field name="NOX">A0</field>
+			<field name="RED">A1</field>
+		</block>
+
+		<block type="sensor_color_tcs34725"></block>
+		<block type="sensor_color_tcs34725_value"></block>
+		<block type="sensor_color_tcs34725_iscolor"></block>
+
+		<block type="sensor_bmp180">
+			<field name="PIN">2</field>
+		</block>
+		<block type="sensor_ds18b20">
+			<field name="PIN">2</field>
+		</block>	
+		<block type="sensor_ccs811"></block>	
+		<block type="sensor_paj7620"></block>	
+		<block type="sensor_paj7620_gesture"></block>
+
+	</category>
+	
+	<category name="Actuators" colour="15">
+		<block type="actuator_led">
+			<field name="PIN">2</field>
+		</block>	
+		<block type="actuator_led_pwm">
+		<value name="NUM">
+                <shadow type="math_number">
+                    <field name="NUM">128</field>
+                </shadow>
+			</value>
+		</block>			
+		<block type="actuator_led_rgb">
+			<field name="PIN_R">9</field>
+			<field name="PIN_G">10</field>
+			<field name="PIN_B">11</field>			
+			<field name="TYPE">CC</field>
+		</block>
+		<block type="actuator_relay">
+			<field name="PIN">2</field>
+		</block>
+        <block type="actuator_irtx">
+            <field name="PROTOCOL">RC5</field>
+			<value name="CODE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+            <value name="BITS">
+                <shadow type="math_number">
+                    <field name="NUM">12</field>
+                </shadow>
+            </value>
+
+        </block>        
+		<block type="actuator_buzzer_blox">
+			<field name="PIN">2</field>
+			<value name="TONE">
+				<shadow type="math_number">
+					<field name="NUM">1000</field>
+				</shadow>
+			</value>
+			<value name="MS">
+                <shadow type="math_number">
+                    <field name="NUM">500</field>
+                </shadow>
+            </value>
+		</block>
+				
+		<block type="actuator_buzzer_tone"></block>
+		<block type="actuator_buzzer_rttl">
+			<field name="PIN">2</field>
+			<value name="RTTTL">
+				<shadow type="text">
+					<field name="TEXT">song:</field>
+				</shadow>
+			</value>
+		</block>
+		<block type="actuator_buzzer_rttl_melody"></block>
+
+	</category>
+
+	<category name="LCD screen" colour="130">
+		<block type="lcd_begin">
+			<field name="RS_PIN">12</field>
+			<field name="ENABLE_PIN">11</field>
+			<field name="D4_PIN">5</field>
+			<field name="D5_PIN">4</field>
+			<field name="D6_PIN">3</field>
+			<field name="D7_PIN">2</field>			
+		</block>
+		<block type="lcd_begin_i2c">
+			<field name="ADDR">0x27</field>
+		</block>
+        <block type="lcd_customchar">        
+        </block>
+        
+		<block type="lcd_clear"></block>
+		<block type="lcd_print">
+			<field name="CURSOR_COLUMN">0</field>
+			<field name="CURSOR_ROW">0</field>
+			<value name="STRINGOUTPUT">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+		<block type="lcd_print_customchar">
+			<field name="CURSOR_COLUMN">0</field>
+			<field name="CURSOR_ROW">0</field>
+		</block>
+
+		<block type="lcd_print2">
+			<value name="CURSOR_COLUMN">
+				<shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+			</value>
+			<value name="CURSOR_ROW">
+				<shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+			</value>
+			<value name="STRINGOUTPUT">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+
+        <block type="lcd_print2_customchar">
+			<value name="CURSOR_COLUMN">
+				<shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+			</value>
+			<value name="CURSOR_ROW">
+				<shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+			</value>
+		</block>
+
+        <block type="lcd_backlight">
+        </block>
+
+        <block type="lcd_cursor">
+        </block>
+
+        <block type="lcd_display">
+        </block>    
+                    
+	</category>
+
+<!-- OLED -->
+<category name="OLED screen" colour="160">
+        <block type="oled_init"></block>
+	<block type="oled_rotation"></block>
+        <block type="oled_clear"></block>
+	<block type="oled_drawtext">
+		<value name="X">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="TXT">
+			<shadow type="text">
+				<field name="TEXT"></field>
+			</shadow>
+		</value>
+	</block>
+	<block type="oled_drawbitmap">
+		<value name="X">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>
+		</value>
+		<value name="Y">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>
+		</vale>
+	</block>
+	<block type="oled_drawpixel">
+		<value name="X">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+	</block>
+        <block type="oled_drawline">
+		<value name="X1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="X2">
+			<shadow type="math_number">
+				<field name="NUM">64</field>
+			</shadow>								
+		</value>
+		<value name="Y2">
+			<shadow type="math_number">
+				<field name="NUM">32</field>
+			</shadow>								
+		</value>
+	</block>
+	<block type="oled_drawrectangle">
+		<value name="X1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="X2">
+			<shadow type="math_number">
+				<field name="NUM">64</field>
+			</shadow>								
+		</value>
+		<value name="Y2">
+			<shadow type="math_number">
+				<field name="NUM">32</field>
+			</shadow>								
+		</value>
+	</block>
+	<block type="oled_drawcircle">
+		<value name="X">
+			<shadow type="math_number">
+				<field name="NUM">64</field>
+			</shadow>								
+		</value>
+		<value name="Y">
+			<shadow type="math_number">
+				<field name="NUM">32</field>
+			</shadow>								
+		</value>
+		<value name="R">
+			<shadow type="math_number">
+				<field name="NUM">20</field>
+			</shadow>								
+		</value>
+	</block>
+    </category>
+		
+	<!-- EEPROM -->
+	<category name="Memory" colour="220">
+		<block type="eeprom_read_var">
+			<value name="DIR">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+		</block>
+		<block type="eeprom_write_var">
+			<value name="DIR">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+			<value name="VAL">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>
+            </value>
+		</block>		
+	</category>
+
+	<category name="Motor" colour="310">
+		<block type="motor_servo_move">
+			<field name="PIN">2</field>
+			<value name="DEGREE">
+				<shadow type="math_angle">
+					<field name="ANGLE">0</field>
+				</shadow>				
+			</value>
+			<value name="DELAY_TIME">
+				<shadow type="math_number">
+					<field name="NUM">100</field>
+				</shadow>				
+			</value>
+		</block>
+		
+		<block type="motor_servo_oscillator_set">
+			<field name="PIN">2</field>
+			<value name="VALUE">
+				<shadow type="math_number">
+					<field name="NUM">0</field>
+				</shadow>				
+			</value>
+		</block>
+
+		<block type="motor_servo_oscillator_action">
+			<field name="PIN">2</field>
+		</block>
+		<block type="motor_servo_move_i2c">
+			<field name="PIN">0</field>
+			<value name="DEGREE">
+				<shadow type="math_angle">
+					<field name="ANGLE">0</field>
+				</shadow>				
+			</value>
+		</block>
+
+		<block type="motor_stepper_init">
+			<value name="STEPS">
+				<shadow type="math_number">
+					<field name="NUM">2048</field>
+				</shadow>								
+			</value>
+			<field name="PIN1">2</field>
+			<field name="PIN2">3</field>
+			<field name="PIN3">4</field>
+			<field name="PIN4">5</field>		
+		</block>
+		<block type="motor_stepper_setspeed">
+			<value name="RPM">
+				<shadow type="math_number">
+					<field name="NUM">10</field>
+				</shadow>				
+			</value>
+		</block>
+		<block type="motor_stepper_step">
+			<value name="STEP">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>				
+            </value>
+		</block>
+        <block type="motor_dcpwm">
+			<field name="PIN1">9</field>				
+			<field name="PIN2">10</field>
+            <field name="PIN3">11</field>				
+			<field name="PIN1STATUS">LOW</field>
+			<field name="PIN2STATUS">LOW</field>
+            
+            <value name="PWMVAL">
+                <shadow type="math_number">
+                    <field name="NUM">255</field>
+                </shadow>				
+            </value>
+        </block>
+        <block type="motor_l298n_init">                
+			<field name="EN-A">10</field>				
+			<field name="IN1">9</field>				
+			<field name="IN2">8</field>				
+			<field name="IN3">7</field>				
+			<field name="IN4">6</field>				
+			<field name="EN-B">5</field>				
+        </block>
+        <block type="motor_l298n_move">
+            <value name="SPEED">
+                <shadow type="math_number">
+                    <field name="NUM">255</field>
+                </shadow>				
+            </value>
+        </block>
+
+	<block type="motor_l298p_init">                
+			<field name="EN1">3</field>				
+			<field name="M1">12</field>				
+			<field name="EN2">11</field>				
+			<field name="M2">13</field>				
+        </block>
+        <block type="motor_l298p_move">
+            <value name="SPEED">
+                <shadow type="math_number">
+                    <field name="NUM">255</field>
+                </shadow>				
+            </value>
+        </block>
+	</category>
+
+	<category name="Motor-Shield" colour="310">
+		<block type="motorshield_servo_move">
+			<value name="DEGREE">
+				<shadow type="math_angle">
+					<field name="ANGLE">0</field>
+				</shadow>				
+			</value>
+		</block>
+		<block type="motorshield_stepper_init">
+			<value name="STEPS">
+				<shadow type="math_number">
+					<field name="NUM">2048</field>
+				</shadow>								
+			</value>
+		</block>
+		<block type="motorshield_stepper_setspeed">
+			<value name="RPM">
+				<shadow type="math_number">
+					<field name="NUM">10</field>
+				</shadow>				
+			</value>
+		</block>
+		<block type="motorshield_stepper_step">
+			<value name="STEP">
+				<shadow type="math_number">
+					<field name="NUM">1</field>
+				</shadow>				
+			</value>
+		</block>
+		<block type="motorshield_dc_setspeed">            
+			<value name="SPEED">
+				<shadow type="math_number">
+					<field name="NUM">255</field>
+				</shadow>				
+			</value>
+		</block>
+		<block type="motorshield_dc_move">            
+		</block>
+	</category>
+
+	<category name="Keypad" colour="75">
+		<block type="keypad_init_34">
+			<field name="ROW1">11</field>				
+			<field name="ROW2">10</field>				
+			<field name="ROW3">9</field>				
+			<field name="ROW4">8</field>
+			<field name="COL1">7</field>				
+			<field name="COL2">6</field>				
+			<field name="COL3">5</field>				
+		</block>
+		<block type="keypad_init_44">
+			<field name="ROW1">11</field>				
+			<field name="ROW2">10</field>				
+			<field name="ROW3">9</field>				
+			<field name="ROW4">8</field>
+			<field name="COL1">7</field>				
+			<field name="COL2">6</field>				
+			<field name="COL3">5</field>				
+			<field name="COL4">4</field>				
+		</block>
+		<block type="keypad_getkey"></block>
+		<block type="keypad_getkey_str"></block>
+		<block type="keypad_key"></block>	
+	</category>
+	
+	<category name="Reloj RTC" colour="120">
+		<block type="rtc_set_time">
+			<value name="DAY">
+                <shadow type="math_number">
+                    <field name="NUM">17</field>
+                </shadow>				
+            </value>
+			<value name="MONTH">
+                <shadow type="math_number">
+                    <field name="NUM">02</field>
+                </shadow>				
+            </value>
+			<value name="YEAR">
+                <shadow type="math_number">
+                    <field name="NUM">2020</field>
+                </shadow>				
+            </value>
+			<value name="HOUR">
+                <shadow type="math_number">
+                    <field name="NUM">11</field>
+                </shadow>				
+            </value>
+			<value name="MINUTE">
+                <shadow type="math_number">
+                    <field name="NUM">02</field>
+                </shadow>				
+            </value>
+			<value name="SECOND">
+                <shadow type="math_number">
+                    <field name="NUM">55</field>
+                </shadow>				
+            </value>
+		</block>
+		<block type="rtc_set">
+			<value name="VALUE">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>				
+            </value>
+		</block>		
+		<block type="rtc_get"></block>		
+		<block type="rtc_get_time_text"></block>		
+		<block type="rtc_get_date_text"></block>		
+
+	</category>
+	
+	<category name="GPS" colour="360">
+
+		<block type="gps_init">
+			<field name="RX">2</field>
+			<field name="TX">3</field>
+		</block>
+				
+		<block type="gps_validdata">
+		</block>
+
+		<block type="gps_getposition">
+		</block>
+
+		<block type="gps_getspeed">
+		</block>	
+		
+		<block type="gps_getaltitude">
+		</block>	
+
+		<block type="gps_getcourse">
+		</block>	
+
+		<block type="gps_getdatetime">
+		</block>	
+		
+		<block type="gps_distancebetween">
+			<value name="LAT1">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+			<value name="LON1">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+			<value name="LAT2">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+			<value name="LON2">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+
+		</block>	
+		
+	</category>
+	
+	<category name="SD Adapter" colour="290">
+
+		<block type="sd_init">
+			<field name="CS">4</field>			
+		</block>
+
+		<block type="sd_print">
+			<value name="FILE">
+				<shadow type="text">
+						<field name="TEXT">log.txt</field>
+				</shadow>
+			</value>
+			<value name="STRINGOUTPUT">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+
+		<block type="sd_filesize">
+			<value name="FILE">
+				<shadow type="text">
+						<field name="TEXT">log.txt</field>
+				</shadow>
+			</value>
+		</block>
+
+		<block type="sd_remove">
+			<value name="FILE">
+				<shadow type="text">
+						<field name="TEXT">log.txt</field>
+				</shadow>
+			</value>
+		</block>
+
+		<block type="sd_writebyte">
+			<value name="FILE">
+				<shadow type="text">
+						<field name="TEXT">log.txt</field>
+				</shadow>
+			</value>
+			<value name="BYTE">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+		</block>
+
+		<block type="sd_readbyte">
+			<value name="FILE">
+				<shadow type="text">
+						<field name="TEXT">log.txt</field>
+				</shadow>
+			</value>
+			<value name="POS">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+		</block>
+		
+		<block type="sd_readloop">
+			<value name="FILE">
+				<shadow type="text">
+						<field name="TEXT">log.txt</field>
+				</shadow>
+			</value>
+		</block>
+		<block type="sd_exists">
+			<value name="FILE">
+				<shadow type="text">
+						<field name="TEXT">log.txt</field>
+				</shadow>
+			</value>
+		</block>
+	</category>
+	
+	<category name="MQTT" colour="190">
+
+		<block type="mqtt_init">
+		</block>
+		
+		<block type="mqtt_init_esp8266">
+			<field name="RX">1</field>
+			<field name="TX">0</field>
+			<field name="BAUD">115200</field>
+		</block>
+
+		<block type="mqtt_pub">
+			<value name="TOPIC">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+			<value name="MSG">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+		
+		<block type="mqtt_sub">
+			<value name="TOPIC">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+		
+		<block type="mqtt_sub_text">
+			<value name="TOPIC">
+				<shadow type="text">
+						<field name="TEXT"></field>
+				</shadow>
+			</value>
+		</block>
+		
+		<block type="mqtt_isconnected"></block>
+		<block type="mqtt_thingspeak_pub"></block>
+		<block type="mqtt_thingspeak_sub"></block>
+		<block type="mqtt_adafruit_pub"></block>
+		<block type="mqtt_adafruit_sub"></block>
+		
+	</category>
+    
+    <category name="NeoPixel" colour="210">
+        <block type="neopixel_init">
+		<field name="PIN">2</field>
+            <value name="LEDCOUNT">
+                <shadow type="math_number">
+                    <field name="NUM">64</field>
+                </shadow>		
+            </value>
+		</block>
+        <block type="neopixel_clear">
+		</block>
+        <block type="neopixel_setled">
+            <value name="LEDNUMBER">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="R">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="G">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="B">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+		</block>        
+        <block type="neopixel_setledxy">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="R">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="G">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="B">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+		</block>      
+                        
+        <block type="neopixel_setled2">
+            <value name="LEDNUMBER">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+		</block>        
+        
+        <block type="neopixel_setled2xy">
+            <value name="X">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+            <value name="Y">
+                <shadow type="math_number">
+                    <field name="NUM">0</field>
+                </shadow>								
+            </value>
+		</block>
+        
+        <block type="neopixel_setdata">
+            <field name="DATA"></field>
+        </block>
+        
+        <block type="neopixel_show">
+		</block>
+                    
+        
+    </category>
+    
+    <category name="RFID" colour="180">
+        <block type="rfid_init">
+            <field name="CS_PIN">10</field>
+            <field name="RST_PIN">9</field>
+		</block>
+        <block type="rfid_newcardpresent">
+		</block>
+        <block type="rfid_readuid">
+		</block>     
+    </category>
+
+    <category name="LedMatrix 8x8" colour="390">
+        <block type="ledmatrix_init"></block>
+	<block type="ledmatrix_rotation"></block>
+        <block type="ledmatrix_clear"></block>
+	<block type="ledmatrix_drawbitmap"></block>
+	<block type="ledmatrix_drawsprite"></block>
+        <block type="ledmatrix_drawpixel">
+		<value name="X">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+	</block>
+        <block type="ledmatrix_drawline">
+		<value name="X1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="X2">
+			<shadow type="math_number">
+				<field name="NUM">7</field>
+			</shadow>								
+		</value>
+		<value name="Y2">
+			<shadow type="math_number">
+				<field name="NUM">7</field>
+			</shadow>								
+		</value>
+	</block>
+	<block type="ledmatrix_drawrectangle">
+		<value name="X1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y1">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="X2">
+			<shadow type="math_number">
+				<field name="NUM">7</field>
+			</shadow>								
+		</value>
+		<value name="Y2">
+			<shadow type="math_number">
+				<field name="NUM">7</field>
+			</shadow>								
+		</value>
+	</block>
+	<block type="ledmatrix_drawcircle">
+		<value name="X">
+			<shadow type="math_number">
+				<field name="NUM">4</field>
+			</shadow>								
+		</value>
+		<value name="Y">
+			<shadow type="math_number">
+				<field name="NUM">4</field>
+			</shadow>								
+		</value>
+		<value name="R">
+			<shadow type="math_number">
+				<field name="NUM">4</field>
+			</shadow>								
+		</value>
+	</block>
+	<block type="ledmatrix_drawtext">
+		<value name="X">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="Y">
+			<shadow type="math_number">
+				<field name="NUM">0</field>
+			</shadow>								
+		</value>
+		<value name="TXT">
+			<shadow type="text">
+				<field name="TEXT"></field>
+			</shadow>
+		</value>
+	</block>
+    </category>
+
+
+	<category name="MP3" colour="58">
+			<block type="mp3_init">
+				<field name="RX">2</field>
+				<field name="TX">3</field>
+			</block>
+			<block type="mp3_volume">
+				<value name="VOLUME">
+					<shadow type="math_number">
+						<field name="NUM">30</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="mp3_eq"></block>
+
+			<block type="mp3_play_folderfile">
+				<value name="FOLDER">
+					<shadow type="math_number">
+						<field name="NUM">1</field>
+					</shadow>
+				</value>
+				<value name="FILE">
+					<shadow type="math_number">
+						<field name="NUM">1</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="mp3_control"></block>
+			<block type="mp3_reset"></block>
+	</category>
+
+
+	<category name="Domótica" colour="250">
+			<block type="domotics_pzem004t_init">
+				<field name="RX">2</field>
+				<field name="TX">3</field>
+			</block>
+			<block type="domotics_pzem004t_value"></block>
+			<block type="domotics_pzem004t_setaddress"></block>
+			<block type="domotics_ina219_init"></block>
+			<block type="domotics_ina219_value"></block>
+	</category>
+</xml>
+
+<!-- EDITOR CONTENT -->
+		<div class="row">
+			<div id="botonera">				
+				<div class="btn-group">
+													
+					<button id="btnBlocks" class="btn btn-primary" onclick="areaShow('Blocks');">
+						
+						Blocks					</button>
+					<button id="btnBlocks2" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    					<span class="caret"></span>
+    					<span class="sr-only">Toggle Dropdown</span>
+  					</button>
+  					<ul class="dropdown-menu">
+    					<li>
+							<a href="#" onclick="viewCode();">
+							Code							</a>
+						</li>
+    					<li>
+							<a href="#" onclick="downloadCode();">
+							Download code (.ino)
+							</a>
+						</li>			
+						
+  					</ul>
+									</div>				
+
+                                
+				
+				<div class="pull-right">
+					
+										<div class="btn-group">
+						
+					<button class="btn btn-danger" onclick="save();">
+						<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+					</button>
+					<button id="fakeload" >
+						<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+					
+					</button>
+					<input type="file" id="load" style="display: none;"/>
+					<!--
+					<button id="btnSave2" type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    					<span class="caret"></span>
+    					<span class="sr-only">Toggle Dropdown</span>
+  					</button>					
+  					<ul class="dropdown-menu">
+						<li><a href="#"  onclick="save();">Save as... </a></li>
+    					<li><a href="#"  onclick="load();">Open...</a></li>
+    					<li><a href="#" onclick="saveScreenshot();"> Salvar PAntallazo...</a></li> 
+  					</ul>
+					-->
+					</div>										
+															
+					<div class="btn-group">
+						
+						<div class="btn" id="loading"><img src="../images/ajax-loader.gif" /></div>
+
+						<button id="btnBridgeCfg" class="btn" onclick="bridgeConfig();">
+							</span>Configure connector							
+						</button>
+						<button id="btnUpload" class="btn btn-warning" onclick="bridgeUpload();">
+							
+							Upload						</button>									
+					
+						<button id="btnConsole" class="btn btn-info" onclick="serialConsole();">
+							
+							Console						</button>
+						<button id="btnRefreshPortList" class="btn" onclick="bridgePorts();">
+							</span>Port
+						</button>
+						
+					</div>
+					
+					<select id="serialports"></select>
+					
+				</div>				
+			</div>
+		</div>
+	
+		<div class="row ablocks-area-fill ablocks-area-padding">
+				<div id="areaBlocks" class="ablocks-areatrabajo" style="display :block;">
+					<div id="blocklyDiv"></div>				
+				</div>
+						</div>		
+
+<a id="save-zip-file"></a>
+
+<!-- bridge javascript  and others-->
+
+<script type="text/javascript">
+	
+var workspace;
+var blocklyArea;
+var blocklyDiv;
+
+var loaded_xml=false;
+	
+function autosaveInit(){
+	
+			
+}	
+	
+function blocklyResize0(){
+	
+	var element = blocklyArea;
+    var x = 0;
+    var y = 0;
+    do {
+      x += element.offsetLeft;
+      y += element.offsetTop;
+      element = element.offsetParent;
+    } while (element);
+	
+    // Position blocklyDiv over blocklyArea.
+    blocklyDiv.style.left = x + 'px';
+    blocklyDiv.style.top = y + 'px';
+    blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+    blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+}
+	
+function blocklyResize(){
+	
+    // Position blocklyDiv over blocklyArea.
+    blocklyDiv.style.left = blocklyArea.x + 'px';
+    blocklyDiv.style.top = blocklyArea.y + 'px';
+    blocklyDiv.style.width = blocklyArea.width + 'px';
+    blocklyDiv.style.height = blocklyArea.height + 'px';
+}
+
+
+function blocklyInit(_readonly){
+	
+	blocklyArea = document.getElementById('areaBlocks');
+	blocklyDiv = document.getElementById('blocklyDiv');
+		
+	workspace = Blockly.inject(blocklyDiv,
+    {
+	toolbox: document.getElementById('toolbox'),
+	readOnly: _readonly,
+	collapse: 	true,
+	comments: 	true,
+	css: 	true,
+	disable: 	true,
+	grid: {spacing: 15, length: 2, colour: '#EA5B28', snap: true},
+										
+	scrollbars: 	true,
+	sounds: 	false,
+	trashcan: true,
+	zoom: {controls: true, wheel: true, startScale: 1, maxScale: 1.5, minScale: 0.5, scaleSpeed: 1.2},
+    });
+	
+	
+	//workspace.addChangeListener(saveXml);	
+	$('.blocklyToolboxDiv:last-child').attr('id','blockly-toolbox-1');	
+}
+	
+function loadXml()
+{	
+	//set position and zoom
+	Blockly.mainWorkspace.scrollX=0;
+	Blockly.mainWorkspace.scrollY=0;
+	Blockly.mainWorkspace.scale=1;
+
+	profile.default=profile["arduino_uno"];
+	
+	//ajax
+	$.ajax({
+          url: '/web/project/ajaxload/0',
+          type: 'post',
+          data: '',
+          success: function (response) {
+			  			  
+			  Blockly.mainWorkspace.clear();
+
+			  if(response!=''){				  
+				  xmlDom = Blockly.Xml.textToDom(response);
+				  if (xmlDom) {
+      					
+					Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);												
+
+					loaded_xml=true;
+
+					setStatus('Loaded');					
+					autosaveInit();
+    			  }
+				  else{
+					setStatus('Error');					 
+				  }
+			  }						   
+          }
+     });	
+}
+	
+function saveBlocks()
+{
+	var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+
+	var code=Blockly.Arduino.workspaceToCode(workspace);
+	
+	//ajax
+	$.ajax({
+          url: '/web/project/ajaxsave/0',
+          type: 'post',
+          data: {xml: xmlText, 
+				 code: code,
+				 scrollx: Blockly.mainWorkspace.scrollX,
+				 scrolly: Blockly.mainWorkspace.scrollY,
+				 scale: Blockly.mainWorkspace.scale,
+				},
+          success: function (response) {	
+			  //alert(response);
+			  if(response=="OK"){
+			  	setStatus('Saved');
+			  }
+			  else{
+			  	setStatus('Error');				  
+			  }
+          },
+     });
+}
+
+function abSaveCom()
+{
+	var abcom=$('#serialports').val();        
+		
+    $.ajax({        
+        type: 'POST',
+        url: '/web/project/abcomsave',
+        data: {com: abcom},
+        dataType: 'html',
+		success: function(data){    
+                },
+        error: function(xhr,status,error) {
+				}, 
+    });
+    		
+    return true;	
+}
+	
+function abSaveCfg()
+{
+    var abhost=$("#ab_host").val();        
+		
+    $.ajax({        
+        type: 'POST',
+        url: '/web/project/abhostsave',
+        data: {host:abhost},
+        dataType: 'html',
+		success: function(data){    
+
+					if (confirm('Reload to apply changes?')) {
+								                        
+						//reload                                                						
+						location.reload();						
+					}
+					else {
+						//close modal
+						$('#brige-modal').modal('hide'); 	
+					}
+                },
+        error: function(xhr,status,error) {
+                alert('error!');
+				setStatus('Error');					
+		}, 
+    });
+    		
+    return true;	
+}
+	
+function saveInfo()
+{    
+    var data=$("#projectinfo-form").serialize();        
+	
+    $.ajax({        
+        type: 'POST',
+        url: '/web/project/ajaxinfo/0',
+        data: data,
+        dataType: 'html',
+        success: function(data){    
+					//update project name
+					//$('#titlename').html(data);
+                    setStatus('Saved');
+                },
+        error: function(xhr,status,error) {
+                    setStatus('Error');					
+		}, 
+    });
+    
+    return false;
+}
+
+function exportAbp()
+{
+	window.open("https://online.steamschoolinabox.com","_blank");
+}
+
+
+/*
+function saveAs()
+{
+		var _newname = prompt("Guardar como...", ".");
+
+	if(_newname!=null && _newname!=""){			
+		//ajax
+		$.ajax({
+          url: '/web/project/ajaxsaveas/0',
+          type: 'post',
+          data: {
+			  	name: _newname,
+				},
+          success: function (response) {	
+			  //alert(response);
+			  if(response=="ERROR"){
+				  //error
+				  alert('Error');
+			  }
+			  else{
+				  //redirect
+				  window.location.href=response;
+			  }
+          },
+     });
+	}
+}
+*/
+function saveScreenshot(){
+	
+	var scaleFactor = 0.75;
+
+	//Any modifications are executed on a deep copy of the element
+	var cp = Blockly.mainWorkspace.svgBlockCanvas_.cloneNode(true);
+	cp.removeAttribute("width");
+	cp.removeAttribute("height");
+	cp.removeAttribute("transform");
+
+	//It is important to create this element in the SVG namespace rather than the XHTML namespace
+	var styleElem = document.createElementNS("http://www.w3.org/2000/svg", "style");
+	
+	//styleElem.textContent = Blockly.Css.CONTENT.join('') + ".blocklyToolboxDiv {background: rgba(0, 0, 0, 0.05);}.blocklyMainBackground {stroke:none !important;}.blocklyTreeLabel, .blocklyText, .blocklyHtmlInput {font-family:'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;}.blocklyText { font-size:0.7rem !important;}.rtl .blocklyText {text-align:right;} .blocklyTreeLabel { font-size:1.25rem !important;} .blocklyCheckbox {fill: #ff3030 !important;text-shadow: 0px 0px 6px #f00;font-size: 10pt !important;}";
+	
+	styleElem.textContent = Blockly.Css.CONTENT.join('');	
+	cp.insertBefore(styleElem, cp.firstChild);
+
+	var bbox = Blockly.mainWorkspace.svgBlockCanvas_.getBBox();
+	var xml = new XMLSerializer().serializeToString(cp);
+	
+	xml = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="'+bbox.width+'" height="'+bbox.height+'" viewBox="' + bbox.x + ' ' + bbox.y + ' '  + bbox.width + ' ' + bbox.height + '">'+xml+'</svg>';
+	
+	var svgBase64 = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(xml)));
+	
+	var img = document.createElement('img');
+	img.src = svgBase64;
+	
+	img.onload = function() {
+		var canvas = document.createElement("canvas");
+		canvas.width = Math.ceil(bbox.width) * scaleFactor;
+		canvas.height = Math.ceil(bbox.height) * scaleFactor;
+		var ctx = canvas.getContext('2d');
+		ctx.scale(scaleFactor, scaleFactor);
+		ctx.drawImage(img, 0, 0);
+
+		window.open(canvas.toDataURL(), '_blank');	
+	}
+}
+		
+</script>	
+
+
+
+<!-- modal window 5 / AB Info -->
+
+<div id="bridge-modal" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-md">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4>Connector configuration</h4>
+</div>
+<div class="modal-body">
+<div id="modal-content5" style="overflow: none; max-height: 400px;">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-1">
+				<h4>Host:</h4> 
+			</div>
+			<div class="col-sm-7">
+				<input type="text"  class="col-sm-7" id="ab_host" value="-">
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-1">
+				<h4>Version:</h4> 
+			</div>
+			<div class="col-sm-7">
+			<input type="text" class="col-sm-1" id="ab_version" value="-" readonly>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-1">
+				<h4>System:</h4> 
+			</div>
+			<div class="col-sm-7" id="ab_systeminfo">
+				-
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div clas="col-sm-7">			
+				<a class="btn" href="http://bloques.conmasfuturo.com/jblocks/connector">
+					 Download connector</a>
+			</div>
+		</div>
+		<br>
+		<!--
+		<div class="row">
+			<button class="btn btn-danger" onclick="abSaveCfg();" id="btnAbSaveCfg">Save</button>		
+		</div>
+		-->
+		<br>
+	</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- modal window 5 / AB serial console -->
+
+<div id="serial-modal" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4>Consola serie</h4>
+</div>
+<div class="modal-body">
+<div id="modal-content4" >
+	<div class="container-fluid">
+		<div class="row">
+			Baudrate:
+			<select id="serialBaudrate">
+				<option>2400</option>
+				<option>4800</option>
+                <option selected>9600</option>
+				<option>19200</option>
+				<option>28800</option>
+				<option>38400</option>
+				<option>57600</option>     
+				<option>115200</option>     				           
+            </select>
+			<div class="btn-group">
+				<button class="btn btn-success" onclick="serialOpen();" id="btnSerialConnect">
+					Connect				</button>
+				<button class="btn btn-danger" onclick="serialClose();" id="btnSerialDisconnect">
+					Disconnect					
+				</button>
+				<button class="btn btn-info" onclick="serialClean();" id="btnSerialClean">
+					Clean				</button>	
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<input type="text" id="serialTxData">
+			<select id="serialTxEndline">
+				<option value="" selected></option>
+				<option value="r">New line</option>
+				<option value="n">Line feed</option>
+				<option value="rn">NL + LF</option>				
+			</select>
+			<button class="btn" onclick="serialSend();" id="btnSerialSend">Send</button>			
+		</div>
+		<br>
+		<div class="row">
+			<textarea id="serialText" readonly style="min-width:100%;height:55vh;resize: none;"> 
+			</textarea>		
+		</div>
+	</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+var ab_version=0;
+
+var workspace;
+var blocklyArea;
+var blocklyDiv;
+var port_list;
+
+var ws = null; 
+
+function serialConsole(){
+	$('#serial-modal').modal();
+	serialClean();
+}
+
+function bridgeStop(){
+	if(ws){
+		ws.close();
+	}	
+	enableBridge(false);
+	ab_version=0;
+}
+	
+function bridgeStart(){
+
+	window.setInterval(bridgeTest, 10000);	
+	$('#serialports').empty();	
+
+	ws=new WebSocket("ws://localhost:9987/ws");
+		
+	ws.onopen = function (event) {
+		bridgeVersion();
+		bridgePorts();
+	};
+
+	ws.onclose = function (event) {
+		enableBridge(false);
+		$('#serialports').empty();	
+		ab_version=0;
+	};
+
+	ws.onerror = function(event){
+		console.log("ws_onerror");
+		ws.close();
+	}
+
+	ws.onmessage = function(event) {
+		
+  		hideLoading();
+	
+		var msg = JSON.parse(event.data);
+  
+  		switch(msg.cmd) {
+  
+			case "info":			
+				var sysinfo=JSON.parse(msg.data);
+				$('#ab_systeminfo').html("<p>"+sysinfo.platform+"</p><p>"+sysinfo.processor+"</p>");
+				break;
+				
+			case "version_result":
+				$('#ab_version').val(msg.data);	
+
+				//version del AB-Connector
+				ab_version=msg.data;
+
+				if(ab_version < 3){
+					var msg1="<h4>You need update ArduinoBlocks-Connector for this project!</h4>";
+					msg2="Project type: <b>Arduino Uno</b><br>";
+					msg2+="Version needed ofArduinoBlocks-Connector: <b>v3</b><hr>";
+					msg2+='<a href="../connector" target="_blank" class="btn btn-primary">Descarga del conector</a>';
+
+					//alert(msg);
+					avisoModal(msg1,msg2,0);
+					enableBridge(false);
+				}
+				else{
+					enableBridge(true);
+				}
+				break;
+				
+	 		case "ports_result":
+		  		//load port list on combobox
+				$('#serialports').empty();		  
+		  		port_list=JSON.parse(msg.data);
+				
+		  		for (var i in port_list) {
+					
+					var portitem='<option ';
+					if(port_list[i]=='')
+					{
+						portitem+=' selected ';	
+					}
+					portitem+='value="'+port_list[i]+'">'+port_list[i]+'</option>';
+					
+			  		$('#serialports').append(portitem);					
+		  		}		  
+		  		break;
+		  
+	  		case "upload_result":
+				  
+				mud=JSON.parse(msg.data);
+				var msg1="";
+				var tmsg=4000;
+		
+				if(mud.res=="OK"){
+					msg1="Compilado y subido correctamente!";
+					tmsg=4000;	
+					//save selected com port	
+					abSaveCom();
+					setStatus('Ok');
+				}
+				else{
+					msg1="Error compilando o subiendo";
+					setStatus('Error');
+					tmsg=0;
+				}
+				
+				//refresh port list (select the same saved if exists) ???
+				//bridgePorts();		
+
+				//get version and enable		
+				bridgeVersion();
+				
+				avisoModal(msg1,mud.des,tmsg);
+				break;
+				
+			case "serial_rx":		
+				var t=$('#serialText').val();
+				var tlines=t.split('\n');				
+				var nt=msg.data;
+				nt =nt.replace("\r", ""); 
+				
+				//line cleaner!
+				if(tlines.length>100){
+					t='';
+					for(var i = 25;i < tlines.length;i++){
+    					t+=tlines[i];
+						if(i<(tlines.length-1))t+='\n';
+					}
+				}
+
+				//actualizar en ventana 
+				$('#serialText').val(t+nt);
+				
+				//auto-scroll 
+				$('#serialText').scrollTop($('#serialText')[0].scrollHeight);
+						
+				break;
+				
+			case "serial_open_result":
+				if(msg.data=="OK"){
+					serialEnable(true);
+				}
+				else{
+					serialEnable(false);
+				}
+				break;
+				
+			case "serial_close_result":
+				serialEnable(false);
+				break;				
+  		}  	
+	};
+}
+	
+function bridgeTest(){
+
+	if(!ws || ws.readyState == 3){	
+		bridgeStart();
+	}
+}
+	
+function bridgeVersion(){
+		
+	//request AB-connector version
+	var msg = {
+		cmd: "version",
+    	data: "",
+  	};
+ 	ws.send(JSON.stringify(msg));	
+}
+
+function bridgeConfig(){
+
+	//cookie host 
+	$('#ab_host').val('localhost:9987'); 				
+	$('#ab_info').val('?'); 				
+	$('#ab_version').val(ab_version); 				
+				
+	//modal events
+	$("#bridge-modal").on("shown.bs.modal", function () {
+
+		//request info
+		var msg = {
+			cmd: "info",
+    		data: "",
+  		};
+  		ws.send(JSON.stringify(msg));	
+	});
+		
+	//open modal
+	$('#bridge-modal').modal();
+}
+	
+function bridgePorts() {
+
+	if(!ws || ws.readyState == 3){
+		bridgeStart();
+		return;
+	}
+	
+  	var msg = {
+    	cmd: "ports",
+    	data: "",
+  	};
+
+  	ws.send(JSON.stringify(msg));
+}	
+	
+	
+function bridgeUpload(){
+	
+	//save selected por before uploading
+	//abSaveCom();
+
+	enableBridge(false);
+  	showLoading();
+
+	var port=$("#serialports").val();
+
+  	if(port==null){
+		hideLoading();
+		bridgeVersion();  
+		return;
+  	}
+	
+	//generate code
+	var code=Blockly.Arduino.workspaceToCode(workspace);
+
+	var codeB64enc = btoa(code);
+	
+  	var msgdata={
+		
+		code: codeB64enc,
+		board: "Arduino Uno",
+	  	port: port,  
+		ver:2,	
+
+		//AB-Connector 2 protocol extra info:
+		pio_envname: "arduino",
+		pio_platform: "atmelavr",
+		pio_framework: "arduino",
+		pio_board: "uno",
+		pio_extralib: "lib",
+		pio_srcfile: "arduinoblocks.ino",
+  	}	
+  
+  	var msg = {
+		cmd: "upload",
+    	data: JSON.stringify(msgdata),
+  	};
+
+  	ws.send(JSON.stringify(msg));
+}
+
+		
+function serialOpen(){
+	
+	if(!ws || ws.readyState == 3)return;
+		
+	var prt=$("#serialports").val();
+	var br=$("#serialBaudrate").val();
+	
+	var params={
+		baudrate: br,
+		port: prt,
+	};
+	
+	var paramsjson=JSON.stringify(params);
+	
+  	var msg = {
+    	cmd: "serial_open",
+    	data: paramsjson,
+  	};
+
+  	ws.send(JSON.stringify(msg));
+
+}
+
+function serialClose(){
+
+	if(!ws || ws.readyState == 3)return;
+	
+	var msg = {
+    	cmd: "serial_close",
+    	data: "",
+  	};
+
+  	ws.send(JSON.stringify(msg));
+}
+	
+function serialSend(){
+
+	if(!ws || ws.readyState == 3)return;
+	
+	var txdata=$('#serialTxData').val();
+	var el=$('#serialTxEndline').val();
+	
+	var params={
+		tx: txdata,
+		endline: el,
+	};
+	
+	var paramsjson=JSON.stringify(params);
+	
+	var msg = {
+    	cmd: "serial_tx",
+    	data: paramsjson,
+  	};
+
+  	ws.send(JSON.stringify(msg));
+	
+	$('#serialTxData').val('');
+}
+	
+function serialClean(){
+	$("#serialText").val('');
+}
+
+function serialEnable(_status){	
+	$('#serialBaudrate').prop( "disabled", _status );
+	$('#btnSerialConnect').prop( "disabled", _status );
+	$('#btnSerialDisconnect').prop( "disabled", !_status );
+	$('#btnSerialSend').prop( "disabled", !_status );
+}
+
+</script>
+<script type="text/javascript">
+	
+//event resize
+$( window ).resize(function() {
+	blocklyResize();
+});
+	
+//event ready
+$( document ).ready(function() {
+	
+	enableBridge(false);
+	
+	blocklyInit(false);	
+	loadXml();
+	
+	bridgeStart();	
+	
+	$('#blockly-toolbox-1').css('width','190px');
+	
+	$("#serial-modal").on("hidden.bs.modal", function () {
+		serialClose();
+		serialEnable(false);
+	});
+});
+
+		
+</script>	
+
+
+<!-- code pretiffy -->
+<script src="../js/run_prettify.js"></script>
+
+<script type="text/javascript">
+
+function saveAll(_msg=false){
+	
+	if(loaded_xml){
+
+		saveBlocks();
+		saveInfo();
+		if(_msg){
+			avisoModal("Save","¡Blocks + Info saved ok!",2000);
+			setStatus('Ok');
+		}	
+	}
+}
+	
+//change area
+function areaShow(_name){
+	
+	$('#areaBlocks').hide();	
+	$('#areaInfo').hide();	
+	$('#areaFiles').hide();
+	$('#area'+_name).show();	
+
+	$('#btnBlocks').removeClass('btn-primary');
+	$('#btnBlocks2').removeClass('btn-primary');
+	$('#btnInfo').removeClass('btn-primary');
+	$('#btnFiles').removeClass('btn-primary');	
+	$('#btn'+_name).addClass('btn-primary');
+	
+	//blocks
+	if(_name=="Blocks"){
+		$('#btnBlocks2').addClass('btn-primary');
+		$('#blockly-toolbox-1').css('display','block');
+	}
+	else{
+		$('#blockly-toolbox-1').css('display','none');		
+	}
+	
+	//information
+	if(_name=="Info"){
+		loadInfo();
+	}
+	//attachments
+	if(_name=="Files"){
+		loadFiles();
+	}
+}	
+	
+function avisoModal(_title, _body, _time=0){
+		
+	$('#aviso-modal-body').html(_body);	
+	$('#aviso-modal-title').html(_title);
+	$('#aviso-modal').modal();
+	
+	if(_time>0){
+		setTimeout(function(){
+        	$("#aviso-modal").modal('hide');
+    	}, _time);
+	}
+}
+	
+function viewCode(){
+	var code=Blockly.Arduino.workspaceToCode(workspace); 
+    code=code.replace(new RegExp("<", 'g'),"&lt;");
+	code=code.replace(new RegExp(">", 'g'),"&gt;");
+		
+	$('#code-arduino-src').html(code);
+	$('#code-modal').modal();
+}
+
+function downloadZip(){
+
+	var ardcode=Blockly.Arduino.workspaceToCode(workspace); 
+		
+	//var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+	//var encodedCode = Base64.encode(code);
+
+	$.post( "/web/project/generatezip/0", { code: ardcode } )
+		.done(
+			function( _data ) {							
+	    		var link = document.createElement('a');    
+				link.download = 'http://bloques.conmasfuturo.com/jblocks/project';
+    			link.href = "http://bloques.conmasfuturo.com/jblocks/project";
+				document.body.appendChild(link);	
+				link.click();	
+  			}
+		);
+}
+
+function openDev(){
+		
+	$('#dev-modal').modal();
+}
+
+function downloadCode() {
+	
+	var code=Blockly.Arduino.workspaceToCode(workspace);
+		
+	var link = document.createElement('a');    
+	link.download = 'coding_inablox_0.ino';
+    link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(code);
+    
+	document.body.appendChild(link);	
+	link.click();	
+}
+	
+function loadInfo(){
+
+	$('#areaInfo').html('');
+	showLoading();
+	
+	//ajax
+	$.ajax({
+          url: '/web/project/ajaxinfo/0',
+          type: 'post',
+          data: {},
+          success: function (response) {	
+			  $('#areaInfo').html(response);
+			  hideLoading();
+		  },
+		  error:function (request, status, error) {
+			  $('#areaInfo').html('Error');
+			  hideLoading();
+    	  }	
+     });
+}
+	
+function loadFiles(){
+
+	$('#areaFiles').html('');
+	showLoading();
+	
+	//ajax
+	$.ajax({
+          url: '/web/project/ajaxfiles/0',
+          type: 'post',
+          data: {},
+          success: function (response) {	
+			  $('#areaFiles').html(response);
+			  hideLoading();
+		  },
+		  error:function (request, status, error) {
+			  $('#areaFiles').html('Error');
+			  hideLoading();
+    	  }	
+     });
+}
+    
+function shareUsers(){
+    $('#share-modal').modal();
+}
+	
+function shareAddUser(){
+    var newemail=$('#share-input-email').val(); 
+    
+    
+    //ajax
+	$.ajax({
+          url: '/web/project/ajaxshareadd/0',
+          type: 'post',
+          data: { 'newemail': newemail },
+          success: function (response) {	
+              $('#share-input-email').val(''); 
+			  $('#share-detail').html(response);
+		  },
+		  error:function (request, status, error) {
+			  $('#share-detail').html('Error!');
+    	  }	
+     });
+}
+    
+function shareDeleteUser(_id){
+    
+    //ajax
+	$.ajax({
+          url: '/web/project/ajaxsharedelete/0',
+          type: 'post',
+          data: { 'userdeleteid': _id },
+          success: function (response) {	
+			  $('#share-detail').html(response);
+		  },
+		  error:function (request, status, error) {
+			  $('#share-detail').html('Error!');
+    	  }	
+     });}
+    
+</script>
+
+<!-- modal window 2 / CODE -->
+
+<div id="code-modal" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4>arduino-code</h4>
+</div>
+<div class="modal-body">
+<div id="modal-content2" > <!-- style="overflow: scroll; max-height: 400px;" -->	
+	<div class="container-fluid">
+		<pre class="prettyprint">
+			<div id="code-arduino-src" readonly style="min-width:100%;height:55vh;">
+				arduino-code
+			</div>	
+		</pre>
+	</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- modal window 3 / AVISO -->
+
+<div id="aviso-modal" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-md">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Coding in-a-blox Info</h4>
+</div>
+<div class="modal-body">
+<div id="modal-content3"> <!-- style="overflow: none; max-height: 400px;" -->
+	<div class="container-fluid">
+		<h4>
+			<div id="aviso-modal-title"> </div>	
+		</h4>
+		<div id="aviso-modal-body" readonly style="min-width:100%;resize: none;"></div>
+	</div>	
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+<!-- modal window 6 / CONNECTOR DEV CODE-->
+
+<div id="dev-modal" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4>Conector :: Dev </h4>
+</div>
+<div class="modal-body">
+<div id="modal-content6">
+	<div class="container-fluid">
+		<textarea id="dev-code-src" style="min-width:100%;height:55vh;resize:none;"></textarea>
+	</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- modal window 7 / SHARE BY EMAIL -->
+
+<div id="share-modal" class="fade modal" role="dialog" tabindex="-1">
+<div class="modal-dialog modal-md">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4>Compartido</h4>
+</div>
+<div class="modal-body">
+<div id="modal-content7" style="overflow: none; max-height: 400px;">
+	<div class="container">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">@</span>
+                        <input id="share-input-email" type="text" class="form-control" placeholder="user email" aria-describedby="basic-addon1">  
+                    </div>            
+                </div>
+                <div class="col-sm-4">
+                   <button id="btnShareAddUser" class="btn"  onclick="shareAddUser();">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						Add user				</button>		
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="share-detail">
+                                    </div>
+            </div>
+        </div>
+	</div>
+</div>
+
+</div>
+
+</div>
+</div>
+</div>	
+	<br><br>
+</div>
+
+<!-- navbar inferior -->
+<nav class="navbar navbar-default navbar-fixed-bottom ablocks-navbar-backcolor hidden-xs">
+	<div class="container-fluid">
+		<ul class="nav navbar-nav">
+			<li>
+			<p class="navbar-text"> <a href="http://www.arduinoblocks.com" class="navbar-link"> Powered by ArduinoBlocks - by Juanjo Lopez</a></p> 
+			</li>
+
+			
+		</ul>
+		
+    	<ul class="nav navbar-nav pull-right">
+			<p class="navbar-text"><span id="estado" class="label label-danger">-</span></p>      			
+		</ul>			
+	</div>
+</nav>
+
+<!-- status info -->
+<script type="text/javascript">
+function setStatus(_s)
+{	
+	$('#estado').html(_s);
+	$('#estado').fadeIn();	
+	setTimeout(function(){ $('#estado').fadeOut(); }, 5000);	
+}	
+</script>
+
+<!-- google analytics 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','../../../www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90098278-1', 'auto');
+  ga('send', 'pageview');
+</script>
+-->
+
+<!--end-->
+<script src="../assets/cda3038f/js/bootstrap.js"></script>
+<script src="../assets/7b62b9ec/javascripts/language-picker.min.js"></script>
+<script>jQuery(function ($) {
+jQuery('#bridge-modal').modal({"show":false});
+jQuery('#serial-modal').modal({"show":false});
+jQuery('#code-modal').modal({"show":false});
+jQuery('#aviso-modal').modal({"show":false});
+jQuery('#dev-modal').modal({"show":false});
+jQuery('#share-modal').modal({"show":false});
+});</script></body>
+
+
+</html>
